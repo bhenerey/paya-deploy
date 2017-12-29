@@ -1,0 +1,23 @@
+---
+- hosts: bastion
+  become: true
+  become_method: sudo
+
+  vars:
+    users:
+      - username: bhenerey
+        name: Brian Henerey
+        groups: ['paya_admins']
+        uid: 1001
+        home: /home/bhenerey
+        ssh_key:
+          - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0Ie74QjHLjENCBox2pwKyYt2G10Csrpw1ApOpUGAhRKKdfXK9KbRdcDDhvgZFbAb16ZbBG0Xydwg531AKcj/U/cdIljnJzLTQxIoYPgBCG9KJDF5/ZiDITdd14arb14cC7loWVIvZcEH7YBjbNrv8IZNnnxVdBTbtUYPn6iIV9CtysPwuXMQJrliLjjgLDu3WBzxPLi80hswJSw3lNdZtL+XtjWqHcNR2dtxCeM1JQ2zw+b9wpT5x/XGh9fIH+n6GZE0UepJI06Nf3deq/8CIy9Zu9ITHgkdbrEJm+A+mkpqUStr3No/lWXJJdP2Au4uInGSU/69aTBCHdrDTJnoL bhenerey@Brians-MacBook-Pro.local"
+  remote_user: ubuntu
+
+  tasks:
+    - name: test connection
+      ping:
+      remote_user: ubuntu
+
+  roles:
+    - { role: singleplatform-eng.users, tags: [users] }
